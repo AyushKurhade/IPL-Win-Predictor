@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction | IPL Match Prediction{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8 col-md-10">
+    <div class="prediction-card">
+      
+      <!-- Card Header -->
+      <div class="card-header-custom">
+        <h2 class="page-title">IPL Match Prediction</h2>
+        <p class="page-subtitle">Enter the match details below to predict the winner</p>
+      </div>
+
+      <!-- Error Message Box (Hidden by default) -->
+      <div id="errorAlert" class="error-box d-none" role="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M7.938 2.016a.13.13 0 0 1 .125 0l6.857 11.856c.026.045.026.101 0 .146a.13.13 0 0 1-.125.074H1.205a.13.13 0 0 1-.125-.074.13.13 0 0 1 0-.146L7.938 2.016zM8 4c-.535 0-.954.462-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+        </svg>
+        <span id="errorMessageText">Error message here</span>
+      </div>
+
+      <!-- Prediction Form -->
+      <form id="predictionForm" novalidate>
+        
+        <!-- Row 1: Batting Team & Bowling Team -->
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label for="battingTeam" class="form-label">
+              Select Batting Team
+            </label>
+            <select class="form-select" id="battingTeam" required>
+              <option value="" selected disabled>-- Select Batting Team --</option>
+              {% for team in teams %}
+                <option value="{{ team }}">{{ team }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label for="bowlingTeam" class="form-label">
+              Select Bowling Team
+            </label>
+            <select class="form-select" id="bowlingTeam" required>
+              <option value="" selected disabled>-- Select Bowling Team --</option>
+              {% for team in teams %}
+                <option value="{{ team }}">{{ team }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <!-- Row 2: Host City -->
+        <div class="row g-3 mb-3">
+          <div class="col-12">
+            <label for="hostCity" class="form-label">
+              Select Host City
+            </label>
+            <select class="form-select" id="hostCity" required>
+              <option value="" selected disabled>-- Select Host City --</option>
+              {% for city in cities %}
+                <option value="{{ city }}">{{ city }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <!-- Row 3: Target Score & Current Score -->
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label for="targetScore" class="form-label">
+              Target Score
+            </label>
+            <input type="number" class="form-control" id="targetScore" placeholder="e.g. 180" min="1" max="400" required>
+          </div>
+
+          <div class="col-md-6">
+            <label for="currentScore" class="form-label">
+              Current Score
+            </label>
+            <input type="number" class="form-control" id="currentScore" placeholder="e.g. 120" min="0" max="399" required>
+          </div>
+        </div>
+
+        <!-- Row 4: Overs Completed & Wickets Out -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <label for="oversCompleted" class="form-label">
+              Overs Completed
+            </label>
+            <input type="number" step="0.1" class="form-control" id="oversCompleted" placeholder="e.g. 12.3" min="0" max="20" required>
+            <div class="form-text text-muted" style="font-size: 0.78rem;">Enter overs as decimals (e.g. 12.3 = 12 overs & 3 balls)</div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="wicketsOut" class="form-label">
+              Wickets Out
+            </label>
+            <input type="number" class="form-control" id="wicketsOut" placeholder="0 - 10" min="0" max="10" required>
+            <div class="form-text text-muted" style="font-size: 0.78rem;">Range: 0 to 10 wickets</div>
+          </div>
+        </div>
+
+        <!-- Row 5: Predict Winner Button -->
+        <div class="d-grid mb-2">
+          <button type="submit" class="btn btn-primary-custom" id="predictBtn">
+            <span id="btnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+            <span id="btnText">Predict Winner</span>
+          </button>
+        </div>
+
+      </form>
+
+      <!-- Prediction Result Section (Hidden initially) -->
+      <div id="resultContainer" class="result-container d-none">
+        <div class="result-card">
+          
+          <div class="result-title-row">
+            <h4 class="result-heading">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#f59e0b" viewBox="0 0 16 16">
+                <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.774-3.333 3.033v2.041h2a.5.5 0 0 1 0 1h-6a.5.5 0 0 1 0-1h2V10.96C5.011 10.7 3.923 9.79 3.133 7.926A3 3 0 1 1 2 2.036C1.988 1.55 1.976 1.038 1.976.5a.5.5 0 0 1 .524-.5zM3.976 3.056c.01-.397.025-.776.046-1.127H3.04a2 2 0 0 0 .936 1.127zm8.048-1.127c.02.35.035.73.046 1.127a2 2 0 0 0 .936-1.127zM4.978 7.356c.725 1.71 1.72 2.544 3.022 2.628 1.302-.084 2.297-.918 3.022-2.628.272-.64.444-1.42.502-2.356H4.476c.058.936.23 1.716.502 2.356z"/>
+              </svg>
+              Prediction Result
+            </h4>
+            <span class="text-muted small">ML Random Forest</span>
+          </div>
+
+          <!-- Winner Announcement Banner -->
+          <div class="winner-banner">
+            <div class="winner-info">
+              <span class="winner-label">🏆 Likely Winner</span>
+              <h3 class="winner-name" id="winnerNameDisplay">-</h3>
+            </div>
+            <div class="winner-probability-badge">
+              Winning Probability: <span id="winnerProbDisplay">-%</span>
+            </div>
+          </div>
+
+          <!-- Probability Bars -->
+          <div class="team-prob-block">
+            <div class="team-prob-header">
+              <span class="team-name-tag" id="battingTeamNameDisplay">Batting Team</span>
+              <span class="team-pct-tag" id="battingTeamProbDisplay">0%</span>
+            </div>
+            <div class="custom-progress-track">
+              <div id="battingProgressBar" class="custom-progress-bar bar-batting" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="team-prob-block">
+            <div class="team-prob-header">
+              <span class="team-name-tag" id="bowlingTeamNameDisplay">Bowling Team</span>
+              <span class="team-pct-tag" id="bowlingTeamProbDisplay">0%</span>
+            </div>
+            <div class="custom-progress-track">
+              <div id="bowlingProgressBar" class="custom-progress-bar bar-bowling" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- Derived Match Stats Strip -->
+          <div class="stats-strip" id="statsStrip">
+            <div class="stat-item">
+              <div class="stat-label">Runs Left</div>
+              <div class="stat-val" id="statRunsLeft">-</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Balls Left</div>
+              <div class="stat-val" id="statBallsLeft">-</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Wickets Left</div>
+              <div class="stat-val" id="statWicketsLeft">-</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Current RR</div>
+              <div class="stat-val" id="statCRR">-</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Req. RR</div>
+              <div class="stat-val" id="statRRR">-</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/prediction.js') }}"></script>
+{% endblock %}
+
