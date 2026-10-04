@@ -1,0 +1,60 @@
+{
+    "model_name": "RandomForestClassifier",
+    "accuracy": 0.9581825772335096,
+    "comparison": {
+        "logistic_regression_accuracy": 0.8154745338157529,
+        "random_forest_accuracy": 0.9581825772335096
+    },
+    "teams": [
+        "Chennai Super Kings",
+        "Delhi Capitals",
+        "Kings XI Punjab",
+        "Kolkata Knight Riders",
+        "Mumbai Indians",
+        "Rajasthan Royals",
+        "Royal Challengers Bangalore",
+        "Sunrisers Hyderabad"
+    ],
+    "cities": [
+        "Abu Dhabi",
+        "Ahmedabad",
+        "Bengaluru",
+        "Bloemfontein",
+        "Cape Town",
+        "Centurion",
+        "Chandigarh",
+        "Chennai",
+        "Cuttack",
+        "Delhi",
+        "Dharamsala",
+        "Dubai",
+        "Durban",
+        "East London",
+        "Hyderabad",
+        "Indore",
+        "Jaipur",
+        "Johannesburg",
+        "Kimberley",
+        "Kolkata",
+        "Mohali",
+        "Mumbai",
+        "Nagpur",
+        "Port Elizabeth",
+        "Pune",
+        "Raipur",
+        "Ranchi",
+        "Sharjah",
+        "Visakhapatnam"
+    ],
+    "features": [
+        "batting_team",
+        "bowling_team",
+        "city",
+        "runs_left",
+        "balls_left",
+        "wickets_left",
+        "target",
+        "crr",
+        "rrr"
+    ]
+}
