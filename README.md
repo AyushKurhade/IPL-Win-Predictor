@@ -47,6 +47,33 @@ These features are processed through a Scikit-learn pipeline (Categorical `OneHo
 | **Model Architecture** | `Pipeline` with `ColumnTransformer` (OneHotEncoder) & `RandomForestClassifier` |
 
 ---
+## 📸 Application Screenshots
+
+### 1. Landing Page
+Modern, responsive hero section showcasing project highlights and model performance.
+
+![Home Page](screenshots/ui.jpg)
+
+---
+
+### 2. Match Prediction Inputs
+Form interface with input validation for teams, venue, chase target, scores, overs, and wickets.
+
+| Empty Input State | Filled Game State |
+| :---: | :---: |
+| ![Prediction Input Form Blank](screenshots/inputfeild.jpg) | ![Prediction Input Form Filled](screenshots/input.jpg) |
+
+---
+
+### 3. Prediction Result & Live Win Probabilities
+Dynamic result card displaying likely winner, animated probability bars, and computed chase metrics.
+
+![Prediction Output](screenshots/output.jpg)
+
+---
+
+
+---
 
 ## 📊 Dataset Details
 
