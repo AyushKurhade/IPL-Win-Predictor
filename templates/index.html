@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Home | IPL Match Prediction{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    <span>⚡ Real-Time IPL Win Predictor &bull; 95.8% Accuracy</span>
+  </div>
+  <h1 class="hero-title">IPL Match Prediction</h1>
+  <p class="hero-subtitle">Predict the likely winner using Machine Learning</p>
+  <p class="hero-description">
+    Enter the match situation and let our Machine Learning model estimate the winning probability.
+  </p>
+  <div class="d-flex justify-content-center">
+    <a href="{{ url_for('prediction_page') }}" class="btn btn-primary-custom hero-btn">
+      Start Prediction &rarr;
+    </a>
+  </div>
+
+  <!-- Quick Match Context Highlights -->
+  <div class="hero-highlights">
+    <div class="highlight-pill">
+      <span class="pill-icon">⚡</span> Real-Time Chase Probability
+    </div>
+    <div class="highlight-pill">
+      <span class="pill-icon">🏏</span> 8 Core IPL Teams
+    </div>
+    <div class="highlight-pill">
+      <span class="pill-icon">🎯</span> 95.8% Model Accuracy
+    </div>
+    <div class="highlight-pill">
+      <span class="pill-icon">📊</span> 71,800+ Ball Records
+    </div>
+  </div>
+</section>
+
+<div class="row g-4 feature-grid">
+  <div class="col-md-4">
+    <div class="feature-card">
+      <div class="feature-icon-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3.5a.5.5 0 0 1-.5-.5v-3.5A.5.5 0 0 1 8 4"/>
+        </svg>
+      </div>
+      <h5>Real-Time Game State</h5>
+      <p>Computes dynamic match context including Required Run Rate (RRR), Current Run Rate (CRR), balls remaining, and wickets in hand.</p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="feature-card">
+      <div class="feature-icon-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>
+        </svg>
+      </div>
+      <h5>Historical IPL Dataset</h5>
+      <p>Trained on over 71,000 ball-by-ball second innings chasing scenarios across Indian Premier League seasons.</p>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="feature-card">
+      <div class="feature-icon-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68zm1.196 4.77-4.243 4.243a.5.5 0 0 1-.708 0L3.707 7.67a.5.5 0 0 1 .708-.708l1.853 1.853 3.89-3.889a.5.5 0 0 1 .707.707"/>
+        </svg>
+      </div>
+      <h5>Random Forest Model</h5>
+      <p>Uses an ensemble classification pipeline with OneHotEncoder for teams & cities, achieving 95.8% validation accuracy.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
