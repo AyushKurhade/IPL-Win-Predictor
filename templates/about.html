@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}About | IPL Match Prediction{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-9 col-md-11">
+    
+    <!-- About the Project Card -->
+    <div class="about-card">
+      <h3>About the Project</h3>
+      <p class="lead" style="color: #334155; font-size: 1.15rem; line-height: 1.7;">
+        IPL Match Prediction is a Machine Learning based web application that uses historical IPL match data and current match conditions to estimate the likely winner.
+      </p>
+      <p class="text-muted" style="line-height: 1.6;">
+        Designed as an engineering machine learning solution, the application processes real-time chasing dynamics during the second innings of a match. Given target score, current score, overs bowled, and wickets fallen, the system estimates the winning probability for both the batting and bowling teams without reliance on hardcoded heuristics.
+      </p>
+    </div>
+
+    <!-- Technologies Used Card -->
+    <div class="about-card">
+      <h3>Technologies Used</h3>
+      <div class="mb-3">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">Flask</span>
+        <span class="tech-tag">Pandas</span>
+        <span class="tech-tag">NumPy</span>
+        <span class="tech-tag">Scikit-learn</span>
+        <span class="tech-tag">Joblib</span>
+        <span class="tech-tag">HTML5</span>
+        <span class="tech-tag">CSS3</span>
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">Bootstrap 5</span>
+      </div>
+      <p class="text-muted" style="line-height: 1.6;">
+        The system utilizes Scikit-learn Pipelines combining categorical <code>OneHotEncoder</code> transformers with an ensemble <code>RandomForestClassifier</code>, served through a lightweight Flask RESTful API and responsive Bootstrap 5 interface.
+      </p>
+    </div>
+
+    <!-- Machine Learning Pipeline Card -->
+    <div class="about-card">
+      <h3>Machine Learning Pipeline</h3>
+      <p style="color: #334155; line-height: 1.6;">
+        The model is trained using historical IPL match data spanning ball-by-ball records of IPL matches. During training, every ball bowled in a chase situation is modeled with respect to the final match outcome.
+      </p>
+
+      <h5 class="mt-4 mb-2 text-primary-navy" style="font-weight: 700;">Engineered Match Features</h5>
+      <ul style="color: #475569; line-height: 1.8;">
+        <li><strong>Batting Team & Bowling Team:</strong> Categorical encoding of competing franchises.</li>
+        <li><strong>Host City:</strong> Stadium home advantage and local pitch conditions.</li>
+        <li><strong>Runs Left:</strong> The remaining runs needed to surpass the target (<code>Target - Current Score</code>).</li>
+        <li><strong>Balls Left:</strong> Remaining legal deliveries in the innings (<code>120 - Balls Bowled</code>).</li>
+        <li><strong>Wickets Left:</strong> Dismissals available before all-out (<code>10 - Wickets Out</code>).</li>
+        <li><strong>Current Run Rate (CRR):</strong> Score accumulated per over bowled.</li>
+        <li><strong>Required Run Rate (RRR):</strong> Runs required per over remaining.</li>
+      </ul>
+
+      <div class="p-3 bg-light rounded-3 mt-3 border">
+        <small class="text-muted">
+          Model Artifact: <code>models/ipl_prediction_model.pkl</code> &bull; 
+          Evaluated Validation Accuracy: <strong>95.8%</strong> (Random Forest) vs 81.6% (Logistic Regression Baseline).
+        </small>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
